@@ -1,0 +1,21 @@
+<ion-searchbar
+  placeholder="Search Rider Name or AMA #"
+  [(ngModel)]="searchQuery"
+  (keydown.enter)="getRiders(searchQuery)"
+></ion-searchbar>
+
+<ion-card class="results">
+  <ion-accordion-group *ngIf="riders.length > 0">
+    <ion-accordion [value]="r" *ngFor="let r of riders">
+      <ion-item slot="header" color="light">
+        <ion-label>{{ r.name }} - {{ r.hometown }}</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">
+        <p><strong>Name: </strong> {{ r.name }}</p>
+        <p><strong>Ama #: </strong> {{ r.ama_num }}</p>
+        <p><strong>City: </strong> {{ r.city }}</p>
+        <p><strong>State: </strong> {{ r.state }}</p>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+</ion-card>
