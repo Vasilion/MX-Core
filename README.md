@@ -7,3 +7,8 @@ Run + Debug
   - Install the 'Ionic' extension in vs code
   - 'Alt + D' will launch the app in debug mode
   - Open chrome dev tools and change view to Iphone or Samsung 
+
+Useful Resources
+  - Race Hero API https://help.racehero.io/article/498-developer-api
+  - AMA Database https://results.americanmotorcyclist.com/
+  - Ionic Docs https://ionicframework.com/docs/
