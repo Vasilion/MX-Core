@@ -11,6 +11,5 @@ export class AppComponent {
     { title: 'Track Finder', url: 'replace', icon: 'locate' },
     { title: 'Favorite Tracks', url: 'replace', icon: 'star' },
   ];
-  // public labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
   constructor() {}
 }
