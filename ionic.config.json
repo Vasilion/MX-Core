@@ -1,0 +1,7 @@
+{
+  "name": "MX-Core",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
