@@ -18,7 +18,7 @@ export class RiderSearchComponent implements OnInit {
   constructor(private riderService: RiderService) {}
 
   ngOnInit() {}
-
+  //test
   public getRiders(search: string): void {
     this.riderSelected = false;
     this.isLoading = true;
