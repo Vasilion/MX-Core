@@ -5,8 +5,10 @@
     (keydown.enter)="getRiders(searchQuery)"
   ></ion-searchbar>
   <ion-button color="light" (click)="getRiders(searchQuery)">Search</ion-button>
+  <br />
+  <ion-spinner *ngIf="isLoading"></ion-spinner>
 
-  <ion-card class="search-results" *ngIf="!riderSelected">
+  <ion-card class="search-results" *ngIf="!riderSelected && !isLoading">
     <ion-accordion-group *ngIf="riders.length > 0">
       <ion-accordion [value]="r" *ngFor="let r of riders">
         <ion-item slot="header" color="light">
@@ -31,7 +33,7 @@
     </ion-accordion-group>
   </ion-card>
 
-  <ion-card *ngIf="riderSelected">
+  <ion-card *ngIf="riderSelected && !isLoading">
     <ion-header
       >{{ riderProfile?.firstName }} {{ riderProfile?.lastName }}</ion-header
     >

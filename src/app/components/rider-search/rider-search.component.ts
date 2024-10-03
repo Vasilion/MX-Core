@@ -13,6 +13,7 @@ export class RiderSearchComponent implements OnInit {
   riderSelected: boolean = false;
   riders: Rider[] = []; //add types later
   riderProfile: RiderProfile | null = null;
+  isLoading: boolean = false;
 
   constructor(private riderService: RiderService) {}
 
@@ -20,6 +21,7 @@ export class RiderSearchComponent implements OnInit {
 
   public getRiders(search: string): void {
     this.riderSelected = false;
+    this.isLoading = true;
     this.riderService.getRacerList(search).subscribe((ridersResult) => {
       // Map the response to the Rider interface
       this.riders = ridersResult.data.map((riderData: any) => ({
@@ -33,11 +35,13 @@ export class RiderSearchComponent implements OnInit {
         slug: riderData.slug,
         state: riderData.state,
       }));
+      this.isLoading = false;
     });
   }
 
   public getRiderProfile(slug: string): void {
     this.riderSelected = false;
+    //this.isLoading = true;
 
     this.riderService
       .getRacerProfile(slug)
@@ -70,6 +74,7 @@ export class RiderSearchComponent implements OnInit {
             this.riderProfile.raceResults = raceResults;
           }
           this.riderSelected = true; // Now the rider profile is fully loaded
+          //this.isLoading = falseS;
         },
         error: (err) => {
           console.error('Error fetching rider profile or race results:', err);
