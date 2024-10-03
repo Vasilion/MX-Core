@@ -36,4 +36,6 @@ export interface Race {
   moto3: string;
   points: string;
   overallFinish: number;
+  eventName: string;
+  venueName: string;
 }

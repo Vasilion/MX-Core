@@ -4,6 +4,7 @@
     [(ngModel)]="searchQuery"
     (keydown.enter)="getRiders(searchQuery)"
   ></ion-searchbar>
+  <ion-button color="light" (click)="getRiders(searchQuery)">Search</ion-button>
 
   <ion-card class="search-results" *ngIf="!riderSelected">
     <ion-accordion-group *ngIf="riders.length > 0">
@@ -35,7 +36,10 @@
       >{{ riderProfile?.firstName }} {{ riderProfile?.lastName }}</ion-header
     >
     <p><strong>AMA #: </strong>{{ riderProfile?.ama_num }}</p>
-    <p><strong>Birthdate: </strong>{{ riderProfile?.birthdate }}</p>
+    <p>
+      <strong>Birthdate: </strong
+      >{{ riderProfile?.birthdate | date : "MM/dd/yyyy" }}
+    </p>
     <p><strong>City: </strong>{{ riderProfile?.city }}</p>
     <p><strong>State: </strong>{{ riderProfile?.state }}</p>
   </ion-card>
@@ -46,10 +50,10 @@
         *ngFor="let race of riderProfile?.raceResults"
       >
         <ion-item slot="header" color="light">
-          <!--Add Event Name Here too, will have to call the service to get it -->
           <ion-label
             ><strong
-              >{{ race.className }} - {{ race.overallFinish }}</strong
+              >{{ race.venueName || race.eventName }} - {{ race.className }} -
+              P{{ race.overallFinish }}</strong
             ></ion-label
           >
         </ion-item>
