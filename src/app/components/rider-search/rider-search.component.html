@@ -11,7 +11,7 @@
     >Search</ion-button
   >
   <br />
-  <ion-spinner *ngIf="isLoading"></ion-spinner>
+  <ion-spinner *ngIf="isLoading && searchQuery != ''"></ion-spinner>
 
   <ion-card class="search-results" *ngIf="!riderSelected && !isLoading">
     <ion-accordion-group *ngIf="riders.length > 0">
