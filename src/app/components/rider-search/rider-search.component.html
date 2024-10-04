@@ -17,7 +17,7 @@
         <ion-item
           slot="header"
           color="secondary"
-          class="animate__animated animate__fadeInLeft"
+          class="animate__animated animate__fadeIn"
         >
           <ion-label>{{ r.name }} - {{ r.hometown }}</ion-label>
         </ion-item>
@@ -40,10 +40,10 @@
     </ion-accordion-group>
   </ion-card>
 
-  <ion-card *ngIf="riderSelected">
+  <ion-card *ngIf="riderSelected" class="animate__animated animate__fadeIn">
     <p>
-      <ion-header
-        >{{ riderProfile?.firstName }} {{ riderProfile?.lastName }}</ion-header
+      <strong
+        >{{ riderProfile?.firstName }} {{ riderProfile?.lastName }}</strong
       >
     </p>
     <p><strong>AMA #: </strong>{{ riderProfile?.ama_num }}</p>
@@ -54,7 +54,11 @@
     <p><strong>City: </strong>{{ riderProfile?.city }}</p>
     <p><strong>State: </strong>{{ riderProfile?.state }}</p>
   </ion-card>
-  <ion-card class="race-results" *ngIf="riderSelected">
+  <ion-card
+    class="race-results"
+    *ngIf="riderSelected"
+    class="animate__animated animate__fadeInUp"
+  >
     <ion-accordion-group>
       <ion-accordion
         [value]="race"
