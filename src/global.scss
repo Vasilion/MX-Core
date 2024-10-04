@@ -35,3 +35,20 @@
 @import "@ionic/angular/css/palettes/dark.always.css";
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 /* @import "@ionic/angular/css/palettes/dark.system.css"; */
+
+@import "~animate.css/animate.min.css";
+
+body {
+  font-family: "Impact", "Arial Black", sans-serif; /* Bold and heavy fonts */
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #ff4500; /* Motocross-related vibrant orange */
+  letter-spacing: 1.5px; /* Slightly increased spacing for a rugged feel */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4); /* Adds a shadow for depth */
+  font-size: 1.2rem; /* Adjust font size for a clear, bold look */
+}
+
+body:hover {
+  color: #ff6600; /* Slight color change on hover for effect */
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6); /* Enhance shadow on hover */
+}
