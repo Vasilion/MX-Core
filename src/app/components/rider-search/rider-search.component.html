@@ -10,12 +10,18 @@
     color="light"
     (click)="getRiders(searchQuery)"
     [disabled]="!searchQuery || searchQuery.length === 0"
+    class="animate__fadeInUp"
     >Search</ion-button
   >
+
   <ion-card class="search-results" *ngIf="!riderSelected">
     <ion-accordion-group *ngIf="riders.length > 0">
       <ion-accordion [value]="r" *ngFor="let r of riders">
-        <ion-item slot="header" color="light">
+        <ion-item
+          slot="header"
+          color="secondary"
+          class="animate__animated animate__fadeIn"
+        >
           <ion-label>{{ r.name }} - {{ r.hometown }}</ion-label>
         </ion-item>
         <div class="ion-padding" slot="content">
@@ -37,10 +43,12 @@
     </ion-accordion-group>
   </ion-card>
 
-  <ion-card *ngIf="riderSelected">
-    <ion-header
-      >{{ riderProfile?.firstName }} {{ riderProfile?.lastName }}</ion-header
-    >
+  <ion-card *ngIf="riderSelected" class="animate__animated animate__fadeIn">
+    <p>
+      <strong
+        >{{ riderProfile?.firstName }} {{ riderProfile?.lastName }}</strong
+      >
+    </p>
     <p><strong>AMA #: </strong>{{ riderProfile?.ama_num }}</p>
     <p>
       <strong>Birthdate: </strong
@@ -49,13 +57,17 @@
     <p><strong>City: </strong>{{ riderProfile?.city }}</p>
     <p><strong>State: </strong>{{ riderProfile?.state }}</p>
   </ion-card>
-  <ion-card class="race-results" *ngIf="riderSelected">
+  <ion-card
+    class="race-results"
+    *ngIf="riderSelected"
+    class="animate__animated animate__fadeInUp"
+  >
     <ion-accordion-group>
       <ion-accordion
         [value]="race"
         *ngFor="let race of riderProfile?.raceResults"
       >
-        <ion-item slot="header" color="light">
+        <ion-item slot="header" color="secondary">
           <ion-label
             ><strong
               >{{ race.venueName || race.eventName }} - {{ race.className }} -
