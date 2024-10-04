@@ -12,3 +12,4 @@ Useful Resources
   - Race Hero API https://help.racehero.io/article/498-developer-api
   - AMA Database https://results.americanmotorcyclist.com/
   - Ionic Docs https://ionicframework.com/docs/
+  - Animations https://animate.style/#documentation

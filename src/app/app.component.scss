@@ -117,3 +117,79 @@ ion-note {
 ion-item.selected {
   --color: var(--ion-color-primary);
 }
+
+:root {
+  --ion-color-primary: #000000;
+  --ion-color-primary-rgb: 0, 0, 0;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #000000;
+  --ion-color-primary-tint: #1a1a1a;
+
+  --ion-color-secondary: #9ee0df;
+  --ion-color-secondary-rgb: 158, 224, 223;
+  --ion-color-secondary-contrast: #000000;
+  --ion-color-secondary-contrast-rgb: 0, 0, 0;
+  --ion-color-secondary-shade: #8bc5c4;
+  --ion-color-secondary-tint: #a8e3e2;
+
+  --ion-color-tertiary: #9ee0df;
+  --ion-color-tertiary-rgb: 158, 224, 223;
+  --ion-color-tertiary-contrast: #000000;
+  --ion-color-tertiary-contrast-rgb: 0, 0, 0;
+  --ion-color-tertiary-shade: #8bc5c4;
+  --ion-color-tertiary-tint: #a8e3e2;
+
+  --ion-color-success: #ec5fe1;
+  --ion-color-success-rgb: 236, 95, 225;
+  --ion-color-success-contrast: #000000;
+  --ion-color-success-contrast-rgb: 0, 0, 0;
+  --ion-color-success-shade: #d054c6;
+  --ion-color-success-tint: #ee6fe4;
+
+  --ion-color-warning: #e4b10c;
+  --ion-color-warning-rgb: 228, 177, 12;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #c99c0b;
+  --ion-color-warning-tint: #e7b924;
+
+  --ion-color-danger: #570007;
+  --ion-color-danger-rgb: 87, 0, 7;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #4d0006;
+  --ion-color-danger-tint: #681a20;
+
+  --ion-color-light: #ffffff;
+  --ion-color-light-rgb: 255, 255, 255;
+  --ion-color-light-contrast: #000000;
+  --ion-color-light-contrast-rgb: 0, 0, 0;
+  --ion-color-light-shade: #e0e0e0;
+  --ion-color-light-tint: #ffffff;
+
+  --ion-color-medium: #c8fefb;
+  --ion-color-medium-rgb: 200, 254, 251;
+  --ion-color-medium-contrast: #000000;
+  --ion-color-medium-contrast-rgb: 0, 0, 0;
+  --ion-color-medium-shade: #b0e0dd;
+  --ion-color-medium-tint: #cefefb;
+
+  --ion-color-dark: #05aee6;
+  --ion-color-dark-rgb: 5, 174, 230;
+  --ion-color-dark-contrast: #000000;
+  --ion-color-dark-contrast-rgb: 0, 0, 0;
+  --ion-color-dark-shade: #0499ca;
+  --ion-color-dark-tint: #1eb6e9;
+}
+
+.smooth {
+  opacity: 0; /* Start invisible */
+  transform: translateY(20px); /* Start slightly below */
+  transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out; /* Transition for smoothness */
+}
+
+.smooth.show {
+  opacity: 1; /* Fade in */
+  transform: translateY(0); /* Slide into place */
+}
