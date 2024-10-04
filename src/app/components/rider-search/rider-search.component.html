@@ -1,11 +1,17 @@
 <div class="main-container">
   <ion-searchbar
     placeholder="Search Rider Name or AMA #"
+    clearIcon="close-outline"
+    showClearButton="focus"
     [(ngModel)]="searchQuery"
     (keydown.enter)="getRiders(searchQuery)"
   ></ion-searchbar>
-  <ion-button color="light" (click)="getRiders(searchQuery)">Search</ion-button>
-
+  <ion-button
+    color="light"
+    (click)="getRiders(searchQuery)"
+    [disabled]="!searchQuery || searchQuery.length === 0"
+    >Search</ion-button
+  >
   <ion-card class="search-results" *ngIf="!riderSelected">
     <ion-accordion-group *ngIf="riders.length > 0">
       <ion-accordion [value]="r" *ngFor="let r of riders">
@@ -58,13 +64,13 @@
           >
         </ion-item>
         <div class="ion-padding" slot="content">
-          <p *ngIf="race.moto1 != '0'">
+          <p *ngIf="race.moto1 !== '0'">
             <strong>Moto 1: </strong>{{ race.moto1 }}
           </p>
-          <p *ngIf="race.moto2 != '0'">
+          <p *ngIf="race.moto2 !== '0'">
             <strong>Moto 2: </strong>{{ race.moto2 }}
           </p>
-          <p *ngIf="race.moto3 != '0'">
+          <p *ngIf="race.moto3 !== '0'">
             <strong>Moto 3: </strong>{{ race.moto3 }}
           </p>
           <p *ngIf="race.points"><strong>Points: </strong>{{ race.points }}</p>
@@ -72,4 +78,22 @@
       </ion-accordion>
     </ion-accordion-group>
   </ion-card>
+  <ion-toast
+    [isOpen]="showSuccess"
+    [message]="searchResultMessage"
+    icon="checkmark-circle-sharp"
+    [duration]="3000"
+    color="success"
+    swipeGesture="vertical"
+    (didDismiss)="setOpenSuccess(false)"
+  ></ion-toast>
+  <ion-toast
+    [isOpen]="showFailure"
+    [message]="failedResultMessage"
+    [duration]="3000"
+    icon="alert-sharp"
+    color="danger"
+    swipeGesture="vertical"
+    (didDismiss)="setOpenFailure(false)"
+  ></ion-toast>
 </div>
