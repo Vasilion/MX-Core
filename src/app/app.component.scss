@@ -126,7 +126,7 @@ ion-item.selected {
   --ion-color-primary-shade: #000000;
   --ion-color-primary-tint: #1a1a1a;
 
-  --ion-color-secondary: #9ee0df;
+  --ion-color-secondary: #9ee0df9c;
   --ion-color-secondary-rgb: 158, 224, 223;
   --ion-color-secondary-contrast: #000000;
   --ion-color-secondary-contrast-rgb: 0, 0, 0;
@@ -192,4 +192,8 @@ ion-item.selected {
 .smooth.show {
   opacity: 1; /* Fade in */
   transform: translateY(0); /* Slide into place */
+}
+
+.loading-spinner {
+  margin-top: 10px;
 }

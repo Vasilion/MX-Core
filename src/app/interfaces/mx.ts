@@ -38,4 +38,5 @@ export interface Race {
   overallFinish: number;
   eventName: string;
   venueName: string;
+  classSlug: string;
 }
