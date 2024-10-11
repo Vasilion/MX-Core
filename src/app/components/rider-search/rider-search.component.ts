@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { of, switchMap } from 'rxjs';
 import { Race, Rider, RiderProfile } from 'src/app/interfaces/mx';
 import { RiderService } from 'src/app/services/rider.service';
@@ -9,7 +9,9 @@ import { RiderService } from 'src/app/services/rider.service';
   styleUrls: ['./rider-search.component.scss'],
 })
 export class RiderSearchComponent implements OnInit {
+  isLoading = false;
   searchQuery: string = '';
+  eventResult: any = [];
   riderSelected: boolean = false;
   riders: Rider[] = []; //add types later
   riderProfile: RiderProfile | null = null;
@@ -20,6 +22,7 @@ export class RiderSearchComponent implements OnInit {
 
   public getRiders(search: string): void {
     this.riderSelected = false;
+    this.isLoading = true;
     this.riderService.getRacerList(search).subscribe((ridersResult) => {
       // Map the response to the Rider interface
       this.riders = ridersResult.data.map((riderData: any) => ({
@@ -33,11 +36,15 @@ export class RiderSearchComponent implements OnInit {
         slug: riderData.slug,
         state: riderData.state,
       }));
+      this.isLoading = false;
     });
   }
 
   public getRiderProfile(slug: string): void {
     this.riderSelected = false;
+    this.searchQuery = '';
+    this.eventResult = [];
+    this.isLoading = true;
 
     this.riderService
       .getRacerProfile(slug)
@@ -67,9 +74,10 @@ export class RiderSearchComponent implements OnInit {
       .subscribe({
         next: (raceResults: Race[]) => {
           if (this.riderProfile) {
-            this.riderProfile.raceResults = raceResults;
+            this.riderProfile.raceResults = raceResults.reverse();
           }
           this.riderSelected = true; // Now the rider profile is fully loaded
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('Error fetching rider profile or race results:', err);
@@ -92,6 +100,9 @@ export class RiderSearchComponent implements OnInit {
             overallFinish: raceData.position_in_class,
             eventName: raceData.event.name,
             venueName: raceData.event.venue.name,
+            classSlug: raceData.run.results_url.substring(
+              raceData.run.results_url.lastIndexOf('/') + 1
+            ),
           })
         );
 
@@ -100,5 +111,17 @@ export class RiderSearchComponent implements OnInit {
         return of(riderRaces);
       })
     );
+  }
+
+  public getRaceDetails(classSlug: string) {
+    this.riderService.getClassDetailsByEvent(classSlug).subscribe((res) => {
+      this.eventResult = res.results.sort((a: any, b: any) =>
+        a.position_in_class > b.position_in_class ? 1 : -1
+      );
+    });
+  }
+
+  public clearRaceResult(): void {
+    this.eventResult = [];
   }
 }
