@@ -92,42 +92,18 @@ export class RiderSearchComponent {
     this.eventResult = [];
     this.isLoading = true;
 
-    this.riderProfileRequest(slug)
-      .pipe(
-        switchMap((riderProfileResult: any) => {
-          // Assign rider profile information
-          this.riderProfile = {
-            slug: riderProfileResult.profile.slug,
-            id: riderProfileResult.profile.id,
-            birthdate: riderProfileResult.profile.birthdate,
-            firstName: riderProfileResult.profile.first_name,
-            lastName: riderProfileResult.profile.last_name,
-            hometown: riderProfileResult.profile.hometown,
-            city: riderProfileResult.profile.city,
-            state: riderProfileResult.profile.state,
-            ama_num: riderProfileResult.profile.meta.ama_num,
-            class: riderProfileResult.profile.meta.levels.MX,
-            sponsors: riderProfileResult.profile.sponsors,
-            username: riderProfileResult.profile.username,
-            raceResults: [], // Initially empty, to be populated with the next service call
-          };
-
-          // Switch to getRaceResults after setting the rider profile
-          return this.getRaceResults(riderProfileResult.profile.slug);
-        })
-      )
-      .subscribe({
-        next: (raceResults: Race[]) => {
-          if (this.riderProfile) {
-            this.riderProfile.raceResults = raceResults.reverse();
-          }
-          this.riderSelected = true; // Now the rider profile is fully loaded
-          this.isLoading = false;
-        },
-        error: (err) => {
-          console.error('Error fetching rider profile or race results:', err);
-        },
-      });
+    this.riderProfileRequest(slug).subscribe({
+      next: (raceResults: Race[]) => {
+        if (this.riderProfile) {
+          this.riderProfile.raceResults = raceResults.reverse();
+        }
+        this.riderSelected = true; // Now the rider profile is fully loaded
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Error fetching rider profile or race results:', err);
+      },
+    });
   }
 
   public getRaceResults(riderSlug: string) {
