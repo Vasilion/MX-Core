@@ -95,16 +95,17 @@
     [message]="searchResultMessage"
     icon="checkmark-circle-sharp"
     [duration]="3000"
-    color="success"
+    color="primary"
     swipeGesture="vertical"
     (didDismiss)="setOpenSuccess(false)"
+    (willPresent)="setOpenSuccess(true)"
   ></ion-toast>
   <ion-toast
     [isOpen]="showFailure"
     [message]="failedResultMessage"
     [duration]="3000"
     icon="alert-sharp"
-    color="danger"
+    color="secondary"
     swipeGesture="vertical"
     (didDismiss)="setOpenFailure(false)"
   ></ion-toast>

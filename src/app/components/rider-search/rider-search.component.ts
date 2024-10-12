@@ -15,22 +15,25 @@ export class RiderSearchComponent {
   riderProfile: RiderProfile | null = null;
   showSuccess!: boolean;
   showFailure!: boolean;
+  notificationQueryMessage!: string;
 
   constructor(private riderService: RiderService) {}
 
   public get searchResultMessage(): string {
-    return `Showing results for ${this.searchQuery}`;
+    return `Showing results for ${this.notificationQueryMessage}`;
   }
 
   public get failedResultMessage(): string {
-    return `No results for ${this.searchQuery}`;
+    return `No results for ${this.notificationQueryMessage}`;
   }
 
   public setOpenSuccess(isOpen: boolean): void {
+    this.notificationQueryMessage = this.searchQuery;
     this.showSuccess = isOpen;
   }
 
   public setOpenFailure(isOpen: boolean): void {
+    this.notificationQueryMessage = this.searchQuery;
     this.showFailure = isOpen;
   }
 
