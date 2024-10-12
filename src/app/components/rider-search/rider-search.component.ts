@@ -9,7 +9,9 @@ import { RiderService } from 'src/app/services/rider.service';
   styleUrls: ['./rider-search.component.scss'],
 })
 export class RiderSearchComponent {
+  isLoading = false;
   searchQuery: string = '';
+  eventResult: any = [];
   riderSelected: boolean = false;
   riders: Rider[] = []; //add types later
   riderProfile: RiderProfile | null = null;
@@ -39,6 +41,8 @@ export class RiderSearchComponent {
 
   public getRiders(search: string): void {
     this.riderSelected = false;
+    this.isLoading = true;
+
     this.riderService
       .getRacerList(search)
       .pipe(
@@ -52,10 +56,14 @@ export class RiderSearchComponent {
           } else {
             this.showSuccess = true;
           }
+
           if (ridersResult.data.length === 1) {
             const profile = ridersResult.data.find((): boolean => true);
             return this.riderProfileRequest(profile.slug);
-          } // Map the response to the Rider interface
+          }
+
+          // Map the response to the Rider interface
+
           this.riders = ridersResult.data.map((riderData: any) => ({
             city: riderData.city,
             hometown: riderData.hometown,
@@ -70,7 +78,8 @@ export class RiderSearchComponent {
           return of(null);
         })
       )
-      .subscribe((raceResults: Race[]): void => {
+      .subscribe((raceResults: Race[]) => {
+        this.isLoading = false;
         if (this.riderProfile) {
           this.riderProfile.raceResults = raceResults;
         }
@@ -78,16 +87,47 @@ export class RiderSearchComponent {
   }
 
   public getRiderProfile(slug: string): void {
-    this.riderProfileRequest(slug).subscribe({
-      next: (raceResults: Race[]) => {
-        if (this.riderProfile) {
-          this.riderProfile.raceResults = raceResults;
-        }
-      },
-      error: (err) => {
-        console.error('Error fetching rider profile or race results:', err);
-      },
-    });
+    this.riderSelected = false;
+    this.searchQuery = '';
+    this.eventResult = [];
+    this.isLoading = true;
+
+    this.riderProfileRequest(slug)
+      .pipe(
+        switchMap((riderProfileResult: any) => {
+          // Assign rider profile information
+          this.riderProfile = {
+            slug: riderProfileResult.profile.slug,
+            id: riderProfileResult.profile.id,
+            birthdate: riderProfileResult.profile.birthdate,
+            firstName: riderProfileResult.profile.first_name,
+            lastName: riderProfileResult.profile.last_name,
+            hometown: riderProfileResult.profile.hometown,
+            city: riderProfileResult.profile.city,
+            state: riderProfileResult.profile.state,
+            ama_num: riderProfileResult.profile.meta.ama_num,
+            class: riderProfileResult.profile.meta.levels.MX,
+            sponsors: riderProfileResult.profile.sponsors,
+            username: riderProfileResult.profile.username,
+            raceResults: [], // Initially empty, to be populated with the next service call
+          };
+
+          // Switch to getRaceResults after setting the rider profile
+          return this.getRaceResults(riderProfileResult.profile.slug);
+        })
+      )
+      .subscribe({
+        next: (raceResults: Race[]) => {
+          if (this.riderProfile) {
+            this.riderProfile.raceResults = raceResults.reverse();
+          }
+          this.riderSelected = true; // Now the rider profile is fully loaded
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error fetching rider profile or race results:', err);
+        },
+      });
   }
 
   public getRaceResults(riderSlug: string) {
@@ -105,6 +145,9 @@ export class RiderSearchComponent {
             overallFinish: raceData.position_in_class,
             eventName: raceData.event.name,
             venueName: raceData.event.venue.name,
+            classSlug: raceData.run.results_url.substring(
+              raceData.run.results_url.lastIndexOf('/') + 1
+            ),
           })
         );
 
@@ -113,6 +156,18 @@ export class RiderSearchComponent {
         return of(riderRaces);
       })
     );
+  }
+
+  public getRaceDetails(classSlug: string) {
+    this.riderService.getClassDetailsByEvent(classSlug).subscribe((res) => {
+      this.eventResult = res.results.sort((a: any, b: any) =>
+        a.position_in_class > b.position_in_class ? 1 : -1
+      );
+    });
+  }
+
+  public clearRaceResult(): void {
+    this.eventResult = [];
   }
 
   private riderProfileRequest(slug: string): Observable<any> {

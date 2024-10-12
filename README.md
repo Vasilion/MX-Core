@@ -10,7 +10,7 @@ Run + Debug
 - 'Alt + D' will launch the app in debug mode
 - Or with CLI: `pnpm add -g ionic` or `npm i -g @ionic/cli`
 - Then run `ionic serve`
-- Open chrome dev tools and change view to Iphone or Samsung
+- Open chrome dev tools (F12 by deafult in google chrome) and change view to Iphone or Samsung
 
 Useful Resources
 
