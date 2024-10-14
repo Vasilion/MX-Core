@@ -1,7 +1,7 @@
 {
-  "name": "MX-Core",
+  "name": "mxcore",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "MX",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
